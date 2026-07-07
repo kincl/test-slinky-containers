@@ -31,10 +31,6 @@ configMapGenerator:
       - files/usr/local/bin/login-entrypoint.sh
       - files/usr/local/bin/fakesystemd.sh
 
-  - name: sackd-entrypoint
-    files:
-      - files/usr/local/bin/sackd-entrypoint.sh
-
   - name: slurmctld-supervisord
     files:
       - files/etc/supervisord.d/fakesystemd.ini
