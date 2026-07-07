@@ -1,0 +1,45 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  # supervisord main config
+  - name: supervisord-conf
+    files:
+      - files/etc/supervisord.conf
+
+  - name: slurmd-supervisord
+    files:
+      - files/etc/supervisord.d/fakesystemd.ini
+      - files/etc/supervisord.d/slurmd.ini
+      - files/etc/supervisord.d/sshd.ini
+  - name: slurmd-entrypoint
+    files:
+      - files/usr/local/bin/slurmd-entrypoint.sh
+      - files/usr/local/bin/fakesystemd.sh
+
+  - name: login-supervisord
+    files:
+      - files/etc/supervisord.d/fakesystemd-slurm.ini
+      - files/etc/supervisord.d/fakesystemd.ini
+      - files/etc/supervisord.d/sackd.ini
+      - files/etc/supervisord.d/sshd.ini
+  - name: login-entrypoint
+    files:
+      - files/usr/local/bin/login-entrypoint.sh
+      - files/usr/local/bin/fakesystemd.sh
+
+  - name: sackd-entrypoint
+    files:
+      - files/usr/local/bin/sackd-entrypoint.sh
+
+  - name: slurmctld-supervisord
+    files:
+      - files/etc/supervisord.d/fakesystemd.ini
+      - files/etc/supervisord.d/slurmctld.ini
+  - name: slurmctld-entrypoint
+    files:
+      - files/usr/local/bin/slurmctld-entrypoint.sh
+      - files/usr/local/bin/fakesystemd.sh

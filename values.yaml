@@ -1,0 +1,36 @@
+nodesetDefaults:
+  slurmd:
+    image:
+      repository: image-registry.openshift-image-registry.svc:5000/slurm/slurm
+      tag: latest
+    volumeMounts:
+      - mountPath: /etc/supervisord.conf
+        name: supervisord
+        subPath: supervisord.conf
+      - mountPath: /etc/supervisord.d
+        name: supervisord-d
+      - mountPath: /bin/entrypoint.sh
+        name: entrypoint
+        subPath: slurmd-entrypoint.sh
+      - mountPath: /usr/local/bin/fakesystemd.sh
+        name: entrypoint
+        subPath: fakesystemd.sh
+  podSpec:
+    volumes:
+      - configMap:
+          name: supervisord-conf
+        name: supervisord
+      - configMap:
+          name: slurmd-supervisord
+        name: supervisord-d
+      - configMap:
+          defaultMode: 493
+          name: slurmd-entrypoint
+        name: entrypoint
+
+nodesets:
+  slinky:
+    enabled: true
+
+partition:
+  enabled: true
