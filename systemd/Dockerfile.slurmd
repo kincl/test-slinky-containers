@@ -1,0 +1,15 @@
+FROM localhost/slurm:latest
+
+RUN systemctl disable systemd-network-generator.service dnf-makecache.timer
+RUN systemctl enable slurmd.service
+
+# Set journald to volatile storage
+RUN sed -i 's/#Storage=auto/Storage=volatile/' /etc/systemd/journald.conf
+# Copy the log streamer service
+COPY log-to-stdout.service /etc/systemd/system/log-to-stdout.service
+# Enable the service so it starts on boot
+RUN systemctl enable log-to-stdout.service
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

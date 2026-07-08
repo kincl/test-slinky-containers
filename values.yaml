@@ -28,9 +28,10 @@ nodesetDefaults:
           name: slurmd-entrypoint
         name: entrypoint
 
+  partition:
+    enabled: true
+
 nodesets:
   slinky:
     enabled: true
 
-partition:
-  enabled: true

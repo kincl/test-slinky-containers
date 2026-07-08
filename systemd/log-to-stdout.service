@@ -1,0 +1,12 @@
+[Unit]
+Description=Stream journal to stdout
+After=systemd-journald.service
+
+[Service]
+Type=simple
+# This command tails the journal and redirects it to PID 1's stdout
+ExecStart=/bin/sh -c 'journalctl -f > /dev/console 2>&1'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

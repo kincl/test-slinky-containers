@@ -1,0 +1,13 @@
+nodesetDefaults:
+  slurmd:
+    image:
+      repository: image-registry.openshift-image-registry.svc:5000/slurm/slurm
+      tag: latest
+    tty: true
+  partition:
+    enabled: true
+
+nodesets:
+  slinky:
+    enabled: true
+
