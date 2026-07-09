@@ -3,7 +3,6 @@ FROM localhost/slurm:systemd
 RUN dnf -y groupinstall "Development Tools"
 RUN dnf -y install openssl-devel bzip2-devel jq
 
-
 # Ref: https://slurm.schedmd.com/quickstart_admin.html#rpmbuild
 RUN <<EOR
 git clone --depth=2 https://github.com/spack/spack.git /opt/spack
